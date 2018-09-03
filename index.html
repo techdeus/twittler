@@ -15,48 +15,57 @@
         <button type="button" class="viewtweets"> Show Your Tweets </button>
       </div>  
     </header>  
-    <section id="tweetcontainer">
-      </section>
-    <section id="tweetcontainerpersonal">
-      </section>
+    <div id="tweetcontainer"> </div>
+    <div id="tweetcontainerpersonal"> </div>
+    <div id="footer"></div>
+
     <script>
 
       $(document).ready(function() {
         var $body = $('body');
         var $tweetContainer = $('#tweetcontainer');
         var $tweetPersonalContainer = $('#tweetcontainerpersonal');
+        var $footer = $('#footer');
 
-        $('.viewtweets').on('click', function() {
+        $(".viewtweets").on('click', function() {
           
           var index = streams.home.length - 1;
-        
           while (index >= 0) {
             var tweet = streams.home[index];
             var userName = tweet.user;
-            var message = tweet.message;
+            var message = tweet.message.toUpperCase();
             var createdTime = tweet.created_at;
-            
-            var $tweet = $('<div class="tweet"><p class="message"> ' + message + '</p><p class="smalltext">' + createdTime + '</p><p class="postedBy"><a class="tweetUser">@' + userName + '</a></p> </div>');
+            var $tweet = $('<div class="tweet"></div>');
+            $tweet.html('<span id="at">@</span><a class="tweetUser">' + userName + ' </a><span> ' + message + '</span> <span class="smalltext"> ' + createdTime + ' </span>');
             $tweet.prependTo($tweetContainer);
             $tweet.animate({'opacity': '1'}, 'slow');
             index -= 1;
           }
           colorRows(getDisplayedTweets());
-        });
-        
-        $('.tweetUser').on('click', function() {
-          var userName = $(this).text();
-          var filtResults = strems.users[userName];
-
-          for (var i = 0; i < filtResults.length; i++) {
-            var $tweet = $('<div class="tweet"><p class="message"> ' + message + '</p><p class="smalltext">' + createdTime + '</p><p class="postedBy"><a class="tweetUser">@' + userName + '</a></p> </div>');
-            $('#tweetcontainer').slideUp();
-            $('#tweetcontainerpersonal').slidedown();
-            $tweet.prependTo($tweetPersonalContainer).hide().slideDown("slow");
+          showButton();
+          $(".tweetUser").on('click', function() {
+            $footer.hide();
+            var name = $(this).text();
+            var filtResults = streams.users[name];
+          
+            console.log('Username:' + name);
+            console.log('streams: ' + filtResults);
+            
+            for (var i = 0; i < filtResults.length; i++) {
+              var userName = filtResults[i].user;
+              var message = filtResults[i].message.toUpperCase();
+              var createdTime = filtResults[i].created_at;
+              var $tweet = $('<div class="tweet"></div>');
+              $tweet.html('<span id="at">@</span><a class="tweetUser">' + userName + '</a><span> ' + message + ' </span><span class="smalltext"> ' + createdTime + '</span>');
+              $tweetContainer.slideUp();
+              $tweetPersonalContainer.slideDown();
+              $tweet.prependTo($tweetPersonalContainer).hide().slideDown("slow");
           }
           colorRows(getDisplayedTweets());
+          $footer.show();
+          });
         });
-
+        
         function getDisplayedTweets() {
           return $('.tweet');
         }
@@ -75,9 +84,18 @@
               }
             }
           }
-
+        function showButton() {
+          $button = $('<button type="button" id="showAll" class="viewtweets"> Go Back </button>');
+          $button.appendTo($footer);
+        }
+        function filterUserName(array, username) {
+          return array.filter(function(element) {
+            if(element.user === username) {
+              return element;
+            }
+          });
+        }
       });
-      
     </script>
   </body>
 </html>

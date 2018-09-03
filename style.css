@@ -2,21 +2,6 @@ body {
 	background-color: lightgrey;
 }
 
-.tweet {
-	color: black;
-	padding: 5px 5px;
-    font-family: Georgia;
-    line-height: 1.1em;
-    text-align: center;
-    /*margin-top: 20px;*/
-}
-
-.font {
-	font-family: cursive;
-	text-transform: capitalize;
-	font-size: 18px;
-}
-
 button {
     border-radius: 10px;
     background-color: #6495ED;
@@ -43,22 +28,28 @@ button:hover {
     color: #6495ED;
 }
 
-.title {
-	/*border: solid 3px green;*/
-	display: block;
-	margin: 0 auto;
-	/*width: 25%;*/
-	/*padding-bottom: 5px;*/
-	text-align: center;
-	font-size: 30px
+#showAll {
+	
+	border-radius: 10px;
+    background-color: orange;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px rgba(0,0,0,0.19);
+    border-color: grey;
+    color: white;
+    text-align: right;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    display: block;
+    font-size: 16px;
+    font-family: cursive;
+    cursor: pointer;
+    margin: 0 auto;
+    margin-top: 20px;
 }
 
-div {
-	/*border: 2px solid green;*/
-}
-
-.user {
-
+#showAll:hover {
+    background-color: white;
+    color: orange;
 }
 
 a {
@@ -71,17 +62,60 @@ a:hover {
   color: rgba(0, 132, 180, 0.5);
 }
 
+div {
+	/*border: 2px solid green;*/
+}
+
+.tweet {
+	color: black;
+	padding: 5px 5px;
+    font-family: Georgia;
+    line-height: 1.1em;
+    text-align: center;
+    /*margin-top: 20px;*/
+}
+
+.font {
+	font-family: cursive;
+	text-transform: capitalize;
+	font-size: 18px;
+}
+
+.title {
+	/*border: solid 3px green;*/
+	display: block;
+	margin: 0 auto;
+	/*width: 25%;*/
+	/*padding-bottom: 5px;*/
+	text-align: center;
+	font-size: 30px
+}
+
+.user {
+
+}
+
 .blue {
   background: rgb(232, 249, 255);
 }
 
 .smalltext {
   font-size: 0.9em;
+  text-align: right;
 }
 
 .message {
   font-weight: 200;
   font-size: 1.4em;
+}
+
+.tweetUser, #at{
+	color: #4EBAFF; 
+}
+
+.tweetUser:hover, #at:hover{
+	cursor: pointer;
+	text-align: left;
 }
 
 
