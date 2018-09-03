@@ -1,37 +1,83 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="utf8">
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
     <link rel="stylesheet" type="text/css" href="./style.css">
   </head>
   <body>
-    <div class="container">
-      <button type="button" id="viewtweets"> View Your Tweets </button>
-    </div>  
-
+    <header> 
+      <div class="title font">
+        <h1>Twittler</h1>
+      </div>
+      <div>
+        <button type="button" class="viewtweets"> Show Your Tweets </button>
+      </div>  
+    </header>  
+    <section id="tweetcontainer">
+      </section>
+    <section id="tweetcontainerpersonal">
+      </section>
     <script>
 
       $(document).ready(function() {
         var $body = $('body');
-        // $body.html('');
-        // var $button = $('<button type="button" id="viewtweets"> View Your Tweets </button>');
-        // $button.appendTo($body);
+        var $tweetContainer = $('#tweetcontainer');
+        var $tweetPersonalContainer = $('#tweetcontainerpersonal');
 
-        $('#viewtweets').on('click', function() {
+        $('.viewtweets').on('click', function() {
           
           var index = streams.home.length - 1;
         
-          while(index >= 0) {
+          while (index >= 0) {
             var tweet = streams.home[index];
-            var $tweet = $('<div class="tweet font"><li></li></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' - (' + tweet.created_at + ')');
-            $tweet.appendTo($body);
+            var userName = tweet.user;
+            var message = tweet.message;
+            var createdTime = tweet.created_at;
+            
+            var $tweet = $('<div class="tweet"><p class="message"> ' + message + '</p><p class="smalltext">' + createdTime + '</p><p class="postedBy"><a class="tweetUser">@' + userName + '</a></p> </div>');
+            $tweet.prependTo($tweetContainer);
+            $tweet.animate({'opacity': '1'}, 'slow');
             index -= 1;
           }
+          colorRows(getDisplayedTweets());
         });
-      });
+        
+        $('.tweetUser').on('click', function() {
+          var userName = $(this).text();
+          var filtResults = strems.users[userName];
 
+          for (var i = 0; i < filtResults.length; i++) {
+            var $tweet = $('<div class="tweet"><p class="message"> ' + message + '</p><p class="smalltext">' + createdTime + '</p><p class="postedBy"><a class="tweetUser">@' + userName + '</a></p> </div>');
+            $('#tweetcontainer').slideUp();
+            $('#tweetcontainerpersonal').slidedown();
+            $tweet.prependTo($tweetPersonalContainer).hide().slideDown("slow");
+          }
+          colorRows(getDisplayedTweets());
+        });
+
+        function getDisplayedTweets() {
+          return $('.tweet');
+        }
+
+        function colorRows(tweets) {
+            // Grab all tweets in DOM if no tweet list is provided
+            if (typeof tweets === 'undefined') {
+              var tweets = this.getDisplayedTweets();
+            }
+            // Color odd rows blue
+            for (var i = 0; i < tweets.length; i++) {
+              if (i % 2 === 0) {
+                tweets.eq(i).addClass('blue');
+              } else {
+                tweets.eq(i).removeClass('blue');
+              }
+            }
+          }
+
+      });
+      
     </script>
   </body>
 </html>

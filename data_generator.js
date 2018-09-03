@@ -42,9 +42,25 @@ var generateRandomTweet = function(){
   var tweet = {};
   tweet.user = randomElement(users);
   tweet.message = randomMessage();
-  tweet.created_at = new Date();
+  tweet.created_at = formatDate(new Date());
   addTweet(tweet);
 };
+
+var formatDate = function(date) {
+  var monthNames = [
+    "January", "February", "March",
+    "April", "May", "June", "July",
+    "August", "September", "October",
+    "November", "December"
+  ];
+
+  var day = date.getDate();
+  var monthIndex = date.getMonth();
+  var year = date.getFullYear();
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  return monthNames[monthIndex] + ' ' + day + ', ' + year + ' (' + hour + ':' + minute + ')';
+}
 
 for(var i = 0; i < 10; i++){
   generateRandomTweet();
@@ -67,3 +83,11 @@ var writeTweet = function(message){
   tweet.message = message;
   addTweet(tweet);
 };
+
+// var filterTweets = function(array, username) {
+//   return array.filter(function(c) {
+//     if (c.user === username) {
+//       return c;
+//     }
+//   });
+// };
