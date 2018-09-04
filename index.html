@@ -12,7 +12,7 @@
         <h1>Twittler</h1>
       </div>
       <div>
-        <button type="button" class="viewtweets"> Show Your Tweets </button>
+        <button type="button" id ="showTweets" class="viewtweets"> Show Your Tweets </button>
       </div>  
     </header>  
     <div id="tweetcontainer"> </div>
@@ -46,7 +46,7 @@
           $(".tweetUser").on('click', function() {
             $footer.hide();
             var name = $(this).text();
-            var filtResults = streams.users[name];
+            var filtResults = streams.users['shawndrost'];
           
             console.log('Username:' + name);
             console.log('streams: ' + filtResults);
@@ -63,6 +63,7 @@
           }
           colorRows(getDisplayedTweets());
           $footer.show();
+          $('#showTweets').prop("disabled", true);
           });
         });
         
@@ -80,21 +81,36 @@
               if (i % 2 === 0) {
                 tweets.eq(i).addClass('blue');
               } else {
-                tweets.eq(i).removeClass('blue');
+                tweets.eq(i).addClass('orange');
               }
             }
           }
         function showButton() {
           $button = $('<button type="button" id="showAll" class="viewtweets"> Go Back </button>');
           $button.appendTo($footer);
-        }
-        function filterUserName(array, username) {
-          return array.filter(function(element) {
-            if(element.user === username) {
-              return element;
-            }
+          
+          $button.on('click', function() {
+          
+            $tweetPersonalContainer.slideUp();
+            $tweetContainer.slideDown();
+            // var index = streams.home.length - 1;
+            // while (index >= 0) {
+            //   var tweet = streams.home[index];
+            //   var userName = tweet.user;
+            //   var message = tweet.message.toUpperCase();
+            //   var createdTime = tweet.created_at;
+            //   var $tweet = $('<div class="tweet"></div>');
+            //   $tweet.html('<span id="at">@</span><a class="tweetUser">' + userName + ' </a><span> ' + message + '</span> <span class="smalltext"> ' + createdTime + ' </span>');
+            //   $tweet.prependTo($tweetContainer);
+            //   $tweet.animate({'opacity': '1'}, 'slow');
+            //   index -= 1;
+            // }
+            $('#showTweets').prop("disabled", false);
+            // colorRows(getDisplayedTweets());
           });
         }
+
+
       });
     </script>
   </body>

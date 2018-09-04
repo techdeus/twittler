@@ -99,9 +99,14 @@ div {
   background: rgb(232, 249, 255);
 }
 
+.orange {
+  background: rgb(255, 191, 128);
+}
+
 .smalltext {
-  font-size: 0.9em;
+  font-size: 0.8em;
   text-align: right;
+  color: grey;
 }
 
 .message {
@@ -118,4 +123,7 @@ div {
 	text-align: left;
 }
 
+#showTweets:disabled {
+	cursor: not-allowed;
+}
 
