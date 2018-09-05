@@ -42,13 +42,15 @@
             index -= 1;
           }
           colorRows(getDisplayedTweets());
-          showButton();
-          $(".tweetUser").on('click', function() {
-            $footer.hide();
-            var name = $(this).text();
-            var filtResults = streams.users['shawndrost'];
           
-            console.log('Username:' + name);
+
+          $(".tweetUser").on('click', function() {
+            showButton();
+            var passedName = $(this).text().trim();
+            console.log(passedName.length);
+            var filtResults = streams.users[String(passedName)];
+            console.dir(passedName);
+            console.log(passedName);
             console.log('streams: ' + filtResults);
             
             for (var i = 0; i < filtResults.length; i++) {
@@ -89,7 +91,7 @@
           $button = $('<button type="button" id="showAll" class="viewtweets"> Go Back </button>');
           $button.appendTo($footer);
           
-          $button.on('click', function() {
+          $('#showAll').on('click', function() {
           
             $tweetPersonalContainer.slideUp();
             $tweetContainer.slideDown();
